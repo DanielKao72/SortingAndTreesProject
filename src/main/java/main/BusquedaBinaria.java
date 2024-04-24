@@ -14,7 +14,7 @@ public class BusquedaBinaria {
             if (arreglo.get(medio).equals(elemento)) {
                 return medio;
             }
-
+            
             if (arreglo.get(medio).compareTo(elemento) < 0) {
                 inicio = medio + 1;
             } else {

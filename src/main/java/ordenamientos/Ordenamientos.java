@@ -12,7 +12,6 @@ public class Ordenamientos {
 
     public void burbujaMayor(ArrayList<String> A) {
         int i, j;
-        String aux = null;
         for (i = 1; i < A.size(); i++) {
             for (j = 0; j < A.size() - i; j++) {
                 if (A.get(j).compareTo(A.get(j + 1)) >= 0) {
@@ -105,7 +104,7 @@ public class Ordenamientos {
 
     public ArrayList<String> ordenaMerge(ArrayList<String> L) {
         int n = L.size(), i, m;
-        ArrayList<String> L1 = new ArrayList(), L2 = new ArrayList();
+        ArrayList<String> L1 = new ArrayList<String>(), L2 = new ArrayList<String>();
         if (n > 1) {
             m = n / 2;
             for (i = 0; i < m; i++) {
@@ -122,7 +121,7 @@ public class Ordenamientos {
     public ArrayList<String> merge(ArrayList<String> L1, ArrayList<String> L2) {
         ArrayList<String> lista = new ArrayList<>();
         while (!L1.isEmpty() && !L2.isEmpty()) {
-            if (L1.get(0).compareTo(L2.get(0)) > 0) {
+            if (L1.get(0).compareTo(L2.get(0)) < 0) {
                 lista.add(L1.get(0));
                 L1.remove(0);
                 if (L1.isEmpty()) {

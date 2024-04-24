@@ -80,17 +80,20 @@ public class ControladorInicio implements ActionListener{
         
         ArrayList<String> cadenaLimpia = utilidades.tokenizador(texto);
         
-        ArrayList<String> testA = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "burbujaMenor", ordenamientos::burbujaMayor));
+        ArrayList<String> testA = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Bubble Sort", ordenamientos::burbujaMayor));
         System.out.println(utilidades.elElementoSeEncuentra(testA, this.cadena));
         
-        ArrayList<String> testB = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "insercion", ordenamientos::insercion));
+        ArrayList<String> testB = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Insertion", ordenamientos::insercion));
         System.out.println(utilidades.elElementoSeEncuentra(testB, this.cadena));
 
-        ArrayList<String> testC = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "shellsort", ordenamientos::shellsort));
+        ArrayList<String> testC = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Shell Sort", ordenamientos::shellsort));
         System.out.println(utilidades.elElementoSeEncuentra(testC, this.cadena));
 
-        ArrayList<String> testD = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "QuickSort", ordenamientos::QuickSort));
+        ArrayList<String> testD = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Merge Sort", ordenamientos::ordenaMerge));
         System.out.println(utilidades.elElementoSeEncuentra(testD, this.cadena));
+
+        ArrayList<String> testE = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Quick Sort", ordenamientos::QuickSort));
+        System.out.println(utilidades.elElementoSeEncuentra(testE, this.cadena));
     }
     
     public void mostrarCreditos(){
