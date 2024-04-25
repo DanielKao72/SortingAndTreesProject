@@ -66,6 +66,7 @@ public class ControladorInicio implements ActionListener{
         MezclaHomogenea mezclaHomogenea = new MezclaHomogenea();
         Utilidades utilidades = new Utilidades();
         ArrayList<String> cadenaLimpia = utilidades.tokenizador(texto);
+        ArrayList<String> auxCadenaLimpia = cadenaLimpia;
         
        // ArrayList<String> testA = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Bubble Sort", ordenamientos::burbujaMayor));
         //System.out.println(utilidades.elElementoSeEncuentra(testA, this.cadena));
@@ -76,15 +77,17 @@ public class ControladorInicio implements ActionListener{
         //ArrayList<String> testC = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Shell Sort", ordenamientos::shellsort));
         //System.out.println(utilidades.elElementoSeEncuentra(testC, this.cadena));
         
-        ArrayList<String> testD = (utilidades.medirTiempoejecucionOrdenamientoConRetorno(cadenaLimpia, "Merge Sort", ordenamientos::ordenaMerge));
+        ArrayList<String> testD = (utilidades.medirTiempoejecucionOrdenamientoConRetorno(auxCadenaLimpia, "Merge Sort", ordenamientos::ordenaMerge));
         System.out.println(utilidades.elElementoSeEncuentra(testD, this.cadena));
-        System.out.println(testD);
+        auxCadenaLimpia = cadenaLimpia;
 
-        ArrayList<String> testE = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Quick Sort", ordenamientos::QuickSort));
+        ArrayList<String> testE = (utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, "Quick Sort", ordenamientos::QuickSort));
         System.out.println(utilidades.elElementoSeEncuentra(testE, this.cadena));
+        auxCadenaLimpia = cadenaLimpia;
 
-        ArrayList<String> testF = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Mezcla Homogénea", mezclaHomogenea::IniciarMezclaHomogenea));
-        System.out.println(utilidades.elElementoSeEncuentra(testF, this.cadena));   
+        ArrayList<String> testF = (utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, "Mezcla Homogénea", mezclaHomogenea::IniciarMezclaHomogenea));
+        System.out.println(utilidades.elElementoSeEncuentra(testF, this.cadena)); 
+        auxCadenaLimpia = cadenaLimpia; 
     }
     
     public void mostrarCreditos(){
