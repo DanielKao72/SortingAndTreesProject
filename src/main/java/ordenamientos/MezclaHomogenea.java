@@ -5,11 +5,31 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MezclaHomogenea {
+
+    public void IniciarMezclaHomogenea(ArrayList<String> data){
+        PrintWriter File;
+        try {
+            File = new PrintWriter (new FileWriter("F.txt"));
+            for (String line: data){
+                File.println(line);
+            }
+        }
+        catch (IOException ex) {
+            Logger.getLogger(MezclaHomogenea.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String F = "F.txt", F1 = "F1.txt", F2 = "F2.txt";
+        try {
+            MezclaDirecta(F, F1, F2);
+        } catch (IOException ex) {
+            Logger.getLogger(MezclaHomogenea.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public int tamañoArchivo(String F) {
         int cont = 0;
@@ -71,7 +91,8 @@ public class MezclaHomogenea {
 
     public void fusionar(String F, String F1, String F2, int part) throws IOException {
         try {
-            int r1 = 0, r2 = 0, k, l;
+            int k,l;
+            String r1 = "", r2 = "";
             boolean b1 = true, b2 = true;
             Scanner File1, File2;
             PrintWriter File;
@@ -79,34 +100,34 @@ public class MezclaHomogenea {
             File2 = new Scanner(new FileReader(F2));
             File = new PrintWriter(new FileWriter(F));
 
-            if (File1.hasNextInt()) {
-                r1 = File1.nextInt();
+            if (File1.hasNextLine()) {
+                r1 = File1.nextLine();
                 b1 = false;
             }
 
-            if (File2.hasNextInt()) {
-                r2 = File2.nextInt();
+            if (File2.hasNextLine()) {
+                r2 = File2.nextLine();
                 b2 = false;
             }
 
-            while ((File1.hasNextInt() || !b1) && (File2.hasNextInt() || !b2)) {
+            while ((File1.hasNextLine() || !b1) && (File2.hasNextLine() || !b2)) {
                 k = 0;
                 l = 0;
                 while (k < part && !b1 && l < part && !b2) {
-                    if (r1 <= r2) {
+                    if (r1.compareTo(r2) < 0) {
                         File.println(r1);
                         b1 = true;
                         k++;
-                        if (File1.hasNextInt()) {
-                            r1 = File1.nextInt();
+                        if (File1.hasNextLine()) {
+                            r1 = File1.nextLine();
                             b1 = false;
                         }
                     } else {
                         File.println(r2);
                         b2 = true;
                         l++;
-                        if (File2.hasNextInt()) {
-                            r2 = File2.nextInt();
+                        if (File2.hasNextLine()) {
+                            r2 = File2.nextLine();
                             b2 = false;
                         }
                     }
@@ -117,8 +138,8 @@ public class MezclaHomogenea {
                         File.println(r1);
                         b1 = true;
                         k++;
-                        if (File1.hasNextInt()) {
-                            r1 = File1.nextInt();
+                        if (File1.hasNextLine()) {
+                            r1 = File1.nextLine();
                             b1 = false;
                         }
                     }
@@ -129,8 +150,8 @@ public class MezclaHomogenea {
                         File.println(r2);
                         b2 = true;
                         l++;
-                        if (File2.hasNextInt()) {
-                            r2 = File2.nextInt();
+                        if (File2.hasNextLine()) {
+                            r2 = File2.nextLine();
                             b2 = false;
                         }
                     }
@@ -143,11 +164,11 @@ public class MezclaHomogenea {
             if (!b2) {
                 File.println(r2);
             }
-            while (File1.hasNextInt()) {
-                File.println(File1.nextInt());
+            while (File1.hasNextLine()) {
+                File.println(File1.nextLine());
             }
-            while (File2.hasNextInt()) {
-                File.println(File2.nextInt());
+            while (File2.hasNextLine()) {
+                File.println(File2.nextLine());
             }
             File1.close();
             File2.close();
