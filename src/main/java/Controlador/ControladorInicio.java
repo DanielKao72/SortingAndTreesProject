@@ -67,17 +67,18 @@ public class ControladorInicio implements ActionListener{
         Utilidades utilidades = new Utilidades();
         ArrayList<String> cadenaLimpia = utilidades.tokenizador(texto);
         
-        ArrayList<String> testA = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Bubble Sort", ordenamientos::burbujaMayor));
-        System.out.println(utilidades.elElementoSeEncuentra(testA, this.cadena));
+       // ArrayList<String> testA = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Bubble Sort", ordenamientos::burbujaMayor));
+        //System.out.println(utilidades.elElementoSeEncuentra(testA, this.cadena));
 
-        ArrayList<String> testB = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Insertion", ordenamientos::insercion));
-        System.out.println(utilidades.elElementoSeEncuentra(testB, this.cadena));
+        //ArrayList<String> testB = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Insertion", ordenamientos::insercion));
+        //System.out.println(utilidades.elElementoSeEncuentra(testB, this.cadena));
 
-        ArrayList<String> testC = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Shell Sort", ordenamientos::shellsort));
-        System.out.println(utilidades.elElementoSeEncuentra(testC, this.cadena));
-    
-        ArrayList<String> testD = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Merge Sort", ordenamientos::ordenaMerge));
+        //ArrayList<String> testC = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Shell Sort", ordenamientos::shellsort));
+        //System.out.println(utilidades.elElementoSeEncuentra(testC, this.cadena));
+        
+        ArrayList<String> testD = (utilidades.medirTiempoejecucionOrdenamientoConRetorno(cadenaLimpia, "Merge Sort", ordenamientos::ordenaMerge));
         System.out.println(utilidades.elElementoSeEncuentra(testD, this.cadena));
+        System.out.println(testD);
 
         ArrayList<String> testE = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Quick Sort", ordenamientos::QuickSort));
         System.out.println(utilidades.elElementoSeEncuentra(testE, this.cadena));

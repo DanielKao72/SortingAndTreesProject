@@ -113,13 +113,16 @@ public class Ordenamientos {
             for (i = m; i < n; i++) {
                 L2.add(L.get(i));
             }
-            L = merge(ordenaMerge(L1), ordenaMerge(L2));
+            L1 = ordenaMerge(L1);
+            L2 = ordenaMerge(L2);
+            L.clear(); 
+            L.addAll(merge(L1, L2));
         }
         return L;
     }
-
+    
     public ArrayList<String> merge(ArrayList<String> L1, ArrayList<String> L2) {
-        ArrayList<String> lista = new ArrayList<>();
+        ArrayList<String> lista = new ArrayList<String>();
         while (!L1.isEmpty() && !L2.isEmpty()) {
             if (L1.get(0).compareTo(L2.get(0)) < 0) {
                 lista.add(L1.get(0));
@@ -128,7 +131,8 @@ public class Ordenamientos {
                     lista.addAll(L2);
                     L2.clear();
                 }
-            } else {
+            } 
+            else{
                 lista.add(L2.get(0));
                 L2.remove(0);
                 if (L2.isEmpty()) {
@@ -137,8 +141,6 @@ public class Ordenamientos {
                 }
             }
         }
-
         return lista;
     }
-
 }
