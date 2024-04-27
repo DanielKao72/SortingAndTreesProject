@@ -1,15 +1,21 @@
 package Controlador;
 
 import Vista.*;
+import Modelo.Resultados;
 import ordenamientos.MezclaHomogenea;
 import ordenamientos.Ordenamientos;
 import main.Utilidades;
+import arboles.arbolABB.ArbolABB;
+import arboles.arbolAVL.ArbolAVL;
+import arboles.arbolB.BTree;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Consumer;
+
 import javax.swing.JOptionPane;
 
 public class ControladorInicio implements ActionListener{
@@ -18,6 +24,7 @@ public class ControladorInicio implements ActionListener{
     private Creditos creditos;
     private ControladorResultados controladorResultados;
     private TablaResultados resultados;
+    private ArrayList<Resultados> resultadosFinales = new ArrayList<Resultados>();
     private String cadena;
     
     public ControladorInicio(Inicio inicio){
@@ -30,8 +37,7 @@ public class ControladorInicio implements ActionListener{
         if(e.getSource() == inicio.buscarBtn){
             String textoArchivo = "";
             obtenerPalabra();
-            //textoArchivo = obtenerTextoArchivo();
-            textoArchivo = "hola espero estas bien";
+            textoArchivo = obtenerTextoArchivo();
             realizarOrdenamientos(textoArchivo);
             mostrarResultados();
             limpiarCampos();
@@ -67,52 +73,73 @@ public class ControladorInicio implements ActionListener{
     public void realizarOrdenamientos(String texto){
         Ordenamientos ordenamientos = new Ordenamientos();
         MezclaHomogenea mezclaHomogenea = new MezclaHomogenea();
+        ArbolABB arbolABB = new ArbolABB("");
+        ArbolAVL arbolAVL = new ArbolAVL("");
+        BTree arbolB = new BTree(3);
         Utilidades utilidades = new Utilidades();
         ArrayList<String> cadenaLimpia = utilidades.tokenizador(texto);
         ArrayList<String> auxCadenaLimpia = new ArrayList<>(cadenaLimpia);
-        
-       // ArrayList<String> testA = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Bubble Sort", ordenamientos::burbujaMayor));
-        //System.out.println(utilidades.elElementoSeEncuentra(testA, this.cadena));
 
-        //ArrayList<String> testB = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Insertion", ordenamientos::insercion));
-        //System.out.println(utilidades.elElementoSeEncuentra(testB, this.cadena));
+        resultadosFinales.add(new Resultados("Bubble Sort", utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, ordenamientos::burbujaMayor) , 
+                utilidades.elElementoSeEncuentra(auxCadenaLimpia, cadena)));
+        auxCadenaLimpia = new ArrayList<>(cadenaLimpia);
 
-        //ArrayList<String> testC = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Shell Sort", ordenamientos::shellsort));
-        //System.out.println(utilidades.elElementoSeEncuentra(testC, this.cadena));
+        resultadosFinales.add(new Resultados("Inserción", utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, ordenamientos::insercion) , 
+                utilidades.elElementoSeEncuentra(auxCadenaLimpia, cadena)));
+        auxCadenaLimpia = new ArrayList<>(cadenaLimpia);
 
-        // System.out.println(cadenaLimpia);
-        // System.out.println(auxCadenaLimpia);
-        
-        // ArrayList<String> testD = (utilidades.medirTiempoejecucionOrdenamientoConRetorno(auxCadenaLimpia, "Merge Sort", ordenamientos::ordenaMerge));
-        // System.out.println(utilidades.elElementoSeEncuentra(testD, this.cadena));
+        resultadosFinales.add(new Resultados("Shell Sort", utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, ordenamientos::shellsort) , 
+                utilidades.elElementoSeEncuentra(auxCadenaLimpia, cadena)));
+        auxCadenaLimpia = new ArrayList<>(cadenaLimpia);
 
-        // System.out.println(cadenaLimpia);
-        // System.out.println(auxCadenaLimpia);
+        resultadosFinales.add(new Resultados("Merge Sort", utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, ordenamientos::ordenaMerge) , 
+                utilidades.elElementoSeEncuentra(auxCadenaLimpia, cadena)));
+        auxCadenaLimpia = new ArrayList<>(cadenaLimpia);
 
-        // auxCadenaLimpia = cadenaLimpia;
+        resultadosFinales.add(new Resultados("Quick Sort", utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, ordenamientos::QuickSort) , 
+                utilidades.elElementoSeEncuentra(auxCadenaLimpia, cadena)));
+        auxCadenaLimpia = new ArrayList<>(cadenaLimpia);
 
-        // System.out.println(cadenaLimpia);
-        // System.out.println(auxCadenaLimpia);
+        resultadosFinales.add(new Resultados("Mezcla Homogénea", utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia,mezclaHomogenea::IniciarMezclaHomogenea),
+                utilidades.elElementoSeEncuentra(auxCadenaLimpia, this.cadena)));
 
-        // ArrayList<String> testE = (utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, "Quick Sort", ordenamientos::QuickSort));
-        // System.out.println(utilidades.elElementoSeEncuentra(testE, this.cadena));
+        resultadosFinales.add(new Resultados("Árbol Binario de Búsqueda", utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, 
+            new Consumer<ArrayList<String>>() {
+                @Override
+                public void accept(ArrayList<String> dataList) {
+                    for (String elemento : dataList) {  
+                        arbolABB.insertar(elemento);
+                    }
+                }
+            }), 
+            arbolABB.buscar(this.cadena)));
 
-        // System.out.println(cadenaLimpia);
-        // System.out.println(auxCadenaLimpia);
+        resultadosFinales.add(new Resultados("Árbol AVL", utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia,
+            new Consumer<ArrayList<String>>() {
+                    @Override
+                    public void accept(ArrayList<String> dataList) {
+                        for (String elemento : dataList) {  
+                            arbolAVL.insertar(elemento);  
+                        }
+                    }
+                }), 
+            arbolAVL.buscar(this.cadena)));
 
-        // auxCadenaLimpia = cadenaLimpia;
-
-        System.out.println(cadenaLimpia);
-        System.out.println(auxCadenaLimpia);
-
-        ArrayList<String> testF = (utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, "Mezcla Homogénea", mezclaHomogenea::IniciarMezclaHomogenea));
-        System.out.println(utilidades.elElementoSeEncuentra(testF, this.cadena)); 
-        auxCadenaLimpia = cadenaLimpia; 
+        resultadosFinales.add(new Resultados("Árbol B", utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, 
+            new Consumer<ArrayList<String>>() {
+                    @Override
+                    public void accept(ArrayList<String> dataList) {
+                        for (String elemento : dataList) {  
+                            arbolB.insertar(elemento);  
+                        }
+                    }
+                }) 
+            , arbolB.buscar(this.cadena)));
     }
 
     public void mostrarResultados(){
         this.resultados = new TablaResultados();
-        this.controladorResultados = new ControladorResultados(inicio, resultados);
+        this.controladorResultados = new ControladorResultados(inicio, resultados, resultadosFinales);
         inicio.setVisible(false);
         resultados.setVisible(true);
     }
