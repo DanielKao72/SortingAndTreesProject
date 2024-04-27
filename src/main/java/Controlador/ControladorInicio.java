@@ -1,7 +1,6 @@
 package Controlador;
 
-import Vista.Inicio;
-import Vista.Creditos;
+import Vista.*;
 import ordenamientos.MezclaHomogenea;
 import ordenamientos.Ordenamientos;
 import main.Utilidades;
@@ -17,6 +16,8 @@ public class ControladorInicio implements ActionListener{
     private Inicio inicio;
     private ControladorCreditos controladorCreditos;
     private Creditos creditos;
+    private ControladorResultados controladorResultados;
+    private TablaResultados resultados;
     private String cadena;
     
     public ControladorInicio(Inicio inicio){
@@ -29,8 +30,10 @@ public class ControladorInicio implements ActionListener{
         if(e.getSource() == inicio.buscarBtn){
             String textoArchivo = "";
             obtenerPalabra();
-            textoArchivo = obtenerTextoArchivo();
+            //textoArchivo = obtenerTextoArchivo();
+            textoArchivo = "hola espero estas bien";
             realizarOrdenamientos(textoArchivo);
+            mostrarResultados();
             limpiarCampos();
         }
         else{
@@ -66,7 +69,7 @@ public class ControladorInicio implements ActionListener{
         MezclaHomogenea mezclaHomogenea = new MezclaHomogenea();
         Utilidades utilidades = new Utilidades();
         ArrayList<String> cadenaLimpia = utilidades.tokenizador(texto);
-        ArrayList<String> auxCadenaLimpia = cadenaLimpia;
+        ArrayList<String> auxCadenaLimpia = new ArrayList<>(cadenaLimpia);
         
        // ArrayList<String> testA = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Bubble Sort", ordenamientos::burbujaMayor));
         //System.out.println(utilidades.elElementoSeEncuentra(testA, this.cadena));
@@ -76,18 +79,42 @@ public class ControladorInicio implements ActionListener{
 
         //ArrayList<String> testC = (utilidades.medirTiempoejecucionOrdenamiento(cadenaLimpia, "Shell Sort", ordenamientos::shellsort));
         //System.out.println(utilidades.elElementoSeEncuentra(testC, this.cadena));
-        
-        ArrayList<String> testD = (utilidades.medirTiempoejecucionOrdenamientoConRetorno(auxCadenaLimpia, "Merge Sort", ordenamientos::ordenaMerge));
-        System.out.println(utilidades.elElementoSeEncuentra(testD, this.cadena));
-        auxCadenaLimpia = cadenaLimpia;
 
-        ArrayList<String> testE = (utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, "Quick Sort", ordenamientos::QuickSort));
-        System.out.println(utilidades.elElementoSeEncuentra(testE, this.cadena));
-        auxCadenaLimpia = cadenaLimpia;
+        // System.out.println(cadenaLimpia);
+        // System.out.println(auxCadenaLimpia);
+        
+        // ArrayList<String> testD = (utilidades.medirTiempoejecucionOrdenamientoConRetorno(auxCadenaLimpia, "Merge Sort", ordenamientos::ordenaMerge));
+        // System.out.println(utilidades.elElementoSeEncuentra(testD, this.cadena));
+
+        // System.out.println(cadenaLimpia);
+        // System.out.println(auxCadenaLimpia);
+
+        // auxCadenaLimpia = cadenaLimpia;
+
+        // System.out.println(cadenaLimpia);
+        // System.out.println(auxCadenaLimpia);
+
+        // ArrayList<String> testE = (utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, "Quick Sort", ordenamientos::QuickSort));
+        // System.out.println(utilidades.elElementoSeEncuentra(testE, this.cadena));
+
+        // System.out.println(cadenaLimpia);
+        // System.out.println(auxCadenaLimpia);
+
+        // auxCadenaLimpia = cadenaLimpia;
+
+        System.out.println(cadenaLimpia);
+        System.out.println(auxCadenaLimpia);
 
         ArrayList<String> testF = (utilidades.medirTiempoejecucionOrdenamiento(auxCadenaLimpia, "Mezcla Homogénea", mezclaHomogenea::IniciarMezclaHomogenea));
         System.out.println(utilidades.elElementoSeEncuentra(testF, this.cadena)); 
         auxCadenaLimpia = cadenaLimpia; 
+    }
+
+    public void mostrarResultados(){
+        this.resultados = new TablaResultados();
+        this.controladorResultados = new ControladorResultados(inicio, resultados);
+        inicio.setVisible(false);
+        resultados.setVisible(true);
     }
     
     public void mostrarCreditos(){
