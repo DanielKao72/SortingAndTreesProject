@@ -24,6 +24,7 @@ public class ControladorResultados implements ActionListener{
 
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == tablaResultados.regresarBtn){
+            limpiarTabla();
             regresarInicio();
         }
     }
@@ -34,6 +35,14 @@ public class ControladorResultados implements ActionListener{
         for(int i = 0; i < resultadosFinales.size(); i++){
             Object[] fila = {resultadosFinales.get(i).getNombre(), resultadosFinales.get(i).getTiempo(), resultadosFinales.get(i).isEncontrado()};
             modelo.addRow(fila);
+        }
+        resultadosFinales.clear();
+    }
+
+    public void limpiarTabla(){
+        DefaultTableModel modelo = (DefaultTableModel) tablaResultados.resultadosTabla.getModel();
+        while(modelo.getRowCount() > 0){
+            modelo.removeRow(0);
         }
     }
 
