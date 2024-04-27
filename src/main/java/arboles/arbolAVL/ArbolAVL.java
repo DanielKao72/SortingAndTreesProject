@@ -265,26 +265,26 @@ public class ArbolAVL {
         return n;
     }
 
-    public void buscar(String o) {
-        buscar(raíz, o);
+    public boolean buscar(String o) {
+        return buscar(raíz, o);
     }
 
-    public void buscar(NodoBin n, String o) throws ItemNotFoundException {
+    public boolean buscar(NodoBin n, String o) throws ItemNotFoundException {
         if (o.compareTo((String) n.getDato()) < 0) {
             if (n.getIzq() == null) {
-                throw new ItemNotFoundException("false");
+                return false;
             } else {
-                buscar(n.getIzq(), o);
+                return buscar(n.getIzq(), o);
             }
         } else {
             if (o.compareTo((String) n.getDato()) > 0) {
                 if (n.getDer() == null) {
-                    throw new ItemNotFoundException("false");
+                    return false;
                 } else {
-                    buscar(n.getDer(), o);
+                    return buscar(n.getDer(), o);
                 }
             } else {
-                System.out.println("true");
+                return true;
             }
         }
     }
