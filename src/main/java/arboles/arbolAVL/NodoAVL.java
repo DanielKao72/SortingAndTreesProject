@@ -1,4 +1,6 @@
-package arboles;
+package arboles.arbolAVL;
+
+import arboles.NodoBin;
 
 public class NodoAVL extends NodoBin {
 
