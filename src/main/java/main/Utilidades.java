@@ -2,6 +2,7 @@ package main;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -11,20 +12,20 @@ import static main.BusquedaBinaria.busquedaBinaria;
 
 public class Utilidades {
 
-    public ArrayList<String> tokenizador(String texto) {
+public ArrayList<String> tokenizador(String texto) {
         ArrayList<String> arregloPalabras = new ArrayList<>();
-        // Remover acentos y caracteres especiales
+        HashSet<String> palabrasUnicas = new HashSet<>();
+
         String textoNormalizado = Normalizer.normalize(texto, Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]", "")
                 .replaceAll("[^a-zA-Z ]", "")
-                .toLowerCase(); // Convertir todo a minúsculas
-        // Definir el patrón para identificar palabras
+                .toLowerCase();
         Pattern patronPalabras = Pattern.compile("\\b\\w+\\b");
         Matcher matcher = patronPalabras.matcher(textoNormalizado);
-        // Encontrar todas las palabras en el texto
         while (matcher.find()) {
-            arregloPalabras.add(matcher.group());
+            palabrasUnicas.add(matcher.group());
         }
+        arregloPalabras.addAll(palabrasUnicas);
         return arregloPalabras;
     }
 

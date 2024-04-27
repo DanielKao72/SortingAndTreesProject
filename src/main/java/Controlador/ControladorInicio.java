@@ -47,7 +47,7 @@ public class ControladorInicio implements ActionListener{
     }
     
     public String obtenerTextoArchivo() {
-        String ruta = "SortingAndTreesProject/prueba.txt";
+        String ruta = "prueba.txt";
         StringBuilder textoArchivo = new StringBuilder();
 
         try (Scanner scanner = new Scanner(new File(ruta))) {
