@@ -19,9 +19,10 @@ public class ControladorResultados implements ActionListener{
         this.tablaResultados = tablaResultados;
         this.tablaResultados.regresarBtn.addActionListener(this);
         this.resultadosFinales = resultadosFinales;
-        llenarTablaResultados();
+        this.llenarTablaResultados();
     }
 
+    @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == tablaResultados.regresarBtn){
             limpiarTabla();

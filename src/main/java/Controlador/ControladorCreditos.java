@@ -14,6 +14,7 @@ public class ControladorCreditos implements ActionListener{
         this.creditos.regresarBtn.addActionListener(this);
     }
     
+    @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == creditos.regresarBtn){
             regresarInicio();

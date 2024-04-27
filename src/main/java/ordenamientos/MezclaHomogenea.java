@@ -9,20 +9,26 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import main.Utilidades;
 
 public class MezclaHomogenea {
 
-    public void IniciarMezclaHomogenea(ArrayList<String> data){
+    public void IniciarMezclaHomogenea(ArrayList<String> data) {
+        Utilidades.sobreEscribirArchivoParaDejarloVacio("F.txt");
         PrintWriter File;
         try {
-            File = new PrintWriter (new FileWriter("F.txt"));
-            for (String line: data){
+            File = new PrintWriter(new FileWriter("F.txt"));
+            for (String line : data) {
                 File.println(line);
             }
-        }
-        catch (IOException ex) {
+            File.close();
+        } catch (IOException ex) {
             Logger.getLogger(MezclaHomogenea.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        Utilidades.sobreEscribirArchivoParaDejarloVacio("F1.txt");
+        Utilidades.sobreEscribirArchivoParaDejarloVacio("F2.txt");
+
         String F = "F.txt", F1 = "F1.txt", F2 = "F2.txt";
         try {
             MezclaDirecta(F, F1, F2);
@@ -91,7 +97,7 @@ public class MezclaHomogenea {
 
     public void fusionar(String F, String F1, String F2, int part) throws IOException {
         try {
-            int k,l;
+            int k, l;
             String r1 = "", r2 = "";
             boolean b1 = true, b2 = true;
             Scanner File1, File2;
