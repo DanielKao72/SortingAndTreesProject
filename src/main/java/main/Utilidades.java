@@ -29,7 +29,7 @@ public ArrayList<String> tokenizador(String texto) {
         return arregloPalabras;
     }
 
-    public long medirTiempoejecucionOrdenamiento(ArrayList<String> data, String methodName, Consumer<ArrayList<String>> operation) {
+    public long medirTiempoejecucionOrdenamiento(ArrayList<String> data, Consumer<ArrayList<String>> operation) {
         long start = System.currentTimeMillis();
         operation.accept(data);
         long finish = System.currentTimeMillis();
