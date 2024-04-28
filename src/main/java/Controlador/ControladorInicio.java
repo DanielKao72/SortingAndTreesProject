@@ -55,7 +55,7 @@ public class ControladorInicio implements ActionListener{
     }
     
     public String obtenerTextoArchivo() {
-        String ruta = "prueba.txt";
+        String ruta = "medline_CDs.txt";
         StringBuilder textoArchivo = new StringBuilder();
 
         try (Scanner scanner = new Scanner(new File(ruta))) {
@@ -76,9 +76,7 @@ public class ControladorInicio implements ActionListener{
         ArbolAVL arbolAVL = new ArbolAVL("");
         BTree arbolB = new BTree(3);
         Utilidades utilidades = new Utilidades();
-        System.out.println(texto);
-        ArrayList<String> cadenaLimpia = utilidades.tokenizador(texto);
-        System.out.println(cadenaLimpia);   
+        ArrayList<String> cadenaLimpia = utilidades.tokenizador(texto);  
         
         
         ArrayList<String> auxCadenaLimpia = new ArrayList<>(cadenaLimpia);
